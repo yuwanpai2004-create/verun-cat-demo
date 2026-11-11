@@ -1,0 +1,1 @@
+import{o as s,c as a,w as o,B as r,i as t}from"./index-DEJPPnXk.js";import{_ as e}from"./demo.Z31-FsCh.js";const n=e({},[["render",function(e,n){const c=t;return s(),a(c,{class:"card"},{default:o(()=>[r(e.$slots,"default")]),_:3})}]]);export{n as C};

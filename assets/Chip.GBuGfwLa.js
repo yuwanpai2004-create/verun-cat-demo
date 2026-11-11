@@ -1,0 +1,1 @@
+import{o as s,c as a,w as t,B as o,k as e,f as r}from"./index-DEJPPnXk.js";const n={__name:"Chip",props:{variant:{type:String,default:"soft"}},setup:n=>(p,i)=>{const c=r;return s(),a(c,{class:e(["chip",{o:"orange"===n.variant}])},{default:t(()=>[o(p.$slots,"default")]),_:3},8,["class"])}};export{n as _};
