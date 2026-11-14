@@ -1,0 +1,1 @@
+function t(t="light"){}function n(t=7){let n=t;return()=>{let t=n+=1831565813;return t=Math.imul(t^t>>>15,1|t),t^=t+Math.imul(t^t>>>7,61|t),((t^t>>>14)>>>0)/4294967296}}const r=t=>String(Math.round(t)).replace(/\B(?=(\d{3})+(?!\d))/g,",");export{r as f,t as h,n as s};

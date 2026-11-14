@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>跑给猫 · 演示台</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: #F6EDDC;
+    background:
+      radial-gradient(60% 70% at 72% 40%, rgba(255, 120, 50, .16), rgba(255, 120, 50, 0) 70%),
+      radial-gradient(50% 60% at 20% 10%, rgba(110, 50, 140, .28), rgba(110, 50, 140, 0) 70%),
+      #07060A;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 72px;
+  }
+  .side { width: 320px; flex: none; }
+  .brand { font-family: "Songti SC", "Noto Serif SC", serif; font-weight: 900; font-size: 56px; line-height: 1.1; letter-spacing: 4px; }
+  .en { margin-top: 10px; font-size: 10px; letter-spacing: 2px; white-space: nowrap; color: rgba(246, 237, 220, .5); text-transform: uppercase; }
+  .lead { margin: 26px 0 30px; font-size: 14px; line-height: 1.9; color: rgba(246, 237, 220, .68); }
+  .lead b { color: #FFD68A; font-weight: 600; }
+  .lab { font-size: 10px; letter-spacing: 3px; color: rgba(246, 237, 220, .4); margin: 22px 0 10px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 8px; }
+  button {
+    font: inherit; font-size: 13px; color: rgba(246, 237, 220, .82);
+    height: 34px; padding: 0 14px; border-radius: 17px; cursor: pointer;
+    background: rgba(255, 244, 226, .05); border: 1px solid rgba(246, 237, 220, .14);
+    transition: all .2s;
+  }
+  button:hover { border-color: rgba(255, 200, 110, .6); color: #FFD68A; background: rgba(255, 190, 90, .08); }
+  button.gold { color: #2A1202; font-weight: 600; border: 0; background: linear-gradient(180deg, #FFD98C, #FFAE3C 52%, #FF8A2C); }
+  .tip { margin-top: 26px; font-size: 12px; line-height: 1.8; color: rgba(246, 237, 220, .4); }
+  .stage { flex: none; width: 399px; height: 836px; transform-origin: center center; }
+  .phone {
+    position: relative; width: 399px; height: 836px; padding: 12px; border-radius: 60px;
+    background: linear-gradient(145deg, #3A3542, #121016 40%, #0A090D 70%, #2A2632);
+    box-shadow: 0 60px 120px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08), 0 0 120px rgba(255, 120, 50, .16);
+  }
+  .phone::before { content: ''; position: absolute; left: 50%; top: 23px; width: 112px; height: 32px; margin-left: -56px; border-radius: 16px; background: #000; z-index: 2; pointer-events: none; }
+  iframe { display: block; width: 375px; height: 812px; border: 0; border-radius: 48px; background: #07060A; }
+  @media (max-width: 860px) { .side { display: none; } }
+</style>
+</head>
+<body>
+  <div class="side">
+    <div class="brand">跑给猫</div>
+    <div class="en">Run for cats · VeRun × 湖大猫咪守护社</div>
+    <p class="lead">跑步攒积分，<b>积分只换给猫</b>。<br />跑 6 公里，就是一只猫一天的饭。<br />右边是可以点的小程序演示。</p>
+
+    <div class="lab">演示路径</div>
+    <div class="btns">
+      <button class="gold" data-go="fresh=1|pages/onboard/index">从头开始</button>
+      <button data-go="g=1&fresh=1|pages/index/index">首页（同步前）</button>
+      <button data-go="g=1&s=1|pages/index/index">首页（同步后）</button>
+      <button data-go="g=1&fresh=1|pages/settle/index">同步结算</button>
+      <button data-go="g=1&s=1|pages/give/index">换给猫</button>
+      <button data-go="g=1&s=1&x=food3|pages/done/index">换好了</button>
+    </div>
+    <div class="lab">其他页面</div>
+    <div class="btns">
+      <button data-go="g=1&s=1&tab=cats|pages/index/index">猫咪</button>
+      <button data-go="g=1&s=1&tab=me|pages/index/index">我的</button>
+      <button data-go="g=1&s=1&x=food3|pages/gifts/index">回礼</button>
+      <button data-go="g=1&s=1&x=food3|pages/poster/index">证书</button>
+      <button data-go="g=1&s=1|pages/delivery/index">送达经过</button>
+      <button data-go="g=1&s=1|pages/ledger/index">钱花在哪</button>
+      <button data-go="g=1&p=zhou|pages/index/index">没表的小周</button>
+      <button data-go="g=1&p=zhou|pages/steps/index">手机步数</button>
+    </div>
+    <p class="tip">小提示：在首页用鼠标划过煤球，它的眼睛会跟着你；点它一下，它会对你慢慢眨眼。</p>
+  </div>
+  <div class="stage" id="stage"><div class="phone"><iframe id="app" allow="accelerometer; gyroscope"></iframe></div></div>
+<script>
+  var app = document.getElementById('app')
+  var stage = document.getElementById('stage')
+  function open(query, page) {
+    app.src = '../../index.html?frame=1' + (query ? '&' + query : '') + '&t=' + Date.now() + '#/' + page
+  }
+  var q = location.search.replace(/^\?/, '').replace(/(^|&)(noframe|frame)=1/g, '')
+  var hash = location.hash.replace(/^#\/?/, '') || 'pages/index/index'
+  open(q, hash)
+  Array.prototype.forEach.call(document.querySelectorAll('[data-go]'), function (b) {
+    b.addEventListener('click', function () {
+      var p = b.getAttribute('data-go').split('|')
+      open(p[0], p[1])
+    })
+  })
+  function fit() {
+    var s = Math.min(1, (window.innerHeight - 32) / 836, (window.innerWidth - 24) / 399)
+    stage.style.transform = 'scale(' + s.toFixed(4) + ')'
+    stage.style.margin = (-(836 * (1 - s)) / 2) + 'px ' + (-(399 * (1 - s)) / 2) + 'px'
+  }
+  window.addEventListener('resize', fit)
+  fit()
+</script>
+</body>
+</html>

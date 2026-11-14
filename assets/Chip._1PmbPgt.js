@@ -1,1 +1,0 @@
-import{o as s,c as a,w as t,z as o,l as e,f as r}from"./index-C7olcU4u.js";const n={__name:"Chip",props:{variant:{type:String,default:"soft"}},setup:n=>(p,i)=>{const l=r;return s(),a(l,{class:e(["chip",{o:"orange"===n.variant}])},{default:t(()=>[o(p.$slots,"default")]),_:3},8,["class"])}};export{n as _};
