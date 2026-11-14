@@ -1,0 +1,1 @@
+import{o as s,c as a,w as o,z as r,i as t}from"./index-C7olcU4u.js";import{_ as e}from"./demo.DPPaqCyX.js";const n=e({},[["render",function(e,n){const c=t;return s(),a(c,{class:"card"},{default:o(()=>[r(e.$slots,"default")]),_:3})}]]);export{n as C};
